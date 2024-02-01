@@ -38,7 +38,6 @@ class Example(QWidget):
     def getImage(self):
         map_request = f"http://static-maps.yandex.ru/1.x/?ll=37.587945442466825,55.73402552478429&spn={self.spn},{self.spn}&l=map"
         response = requests.get(map_request)
-        print(self.spn)
 
         if not response:
             print("Ошибка выполнения запроса:")
