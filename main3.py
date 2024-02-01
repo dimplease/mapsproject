@@ -10,13 +10,35 @@ SCREEN_SIZE = [600, 450]
 
 class Example(QWidget):
     def __init__(self):
+        self.spn = 0.002
         super().__init__()
+        self.image = QLabel(self)
         self.getImage()
-        self.initUI()
+
+    def keyPressEvent(self, event):
+        if str(event.key()) == '16777235':
+            if self.spn < 0.008:
+                self.spn += 0.002
+            elif self.spn >= 90:
+                self.spn = 0.002
+            else:
+                self.spn += 0.03
+        elif str(event.key()) == '16777237':
+            self.spn -= 0.001
+            if self.spn < 0:
+                self.spn = 0.002
+            elif self.spn < 0.08 and self.spn > 0:
+                self.spn -= 0.002
+            else:
+                self.spn -= 0.03
+        self.image.clear()
+        self.getImage()
+
 
     def getImage(self):
-        map_request = "http://static-maps.yandex.ru/1.x/?ll=37.587945442466825,55.73402552478429&spn=0.002,0.002&l=map"
+        map_request = f"http://static-maps.yandex.ru/1.x/?ll=37.587945442466825,55.73402552478429&spn={self.spn},{self.spn}&l=map"
         response = requests.get(map_request)
+        print(self.spn)
 
         if not response:
             print("Ошибка выполнения запроса:")
@@ -28,6 +50,7 @@ class Example(QWidget):
         self.map_file = "map.png"
         with open(self.map_file, "wb") as file:
             file.write(response.content)
+        self.initUI()
 
     def initUI(self):
         self.setGeometry(100, 100, *SCREEN_SIZE)
@@ -35,7 +58,7 @@ class Example(QWidget):
 
         ## Изображение
         self.pixmap = QPixmap(self.map_file)
-        self.image = QLabel(self)
+
         self.image.move(0, 0)
         self.image.resize(600, 450)
         self.image.setPixmap(self.pixmap)
