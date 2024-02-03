@@ -7,10 +7,11 @@ from PyQt5.QtWidgets import QApplication, QWidget, QLabel
 
 SCREEN_SIZE = [600, 450]
 
-
 class Example(QWidget):
     def __init__(self):
         self.spn = 0.002
+        self.form = 'map'
+        self.counterform = 0
         super().__init__()
         self.image = QLabel(self)
         self.getImage()
@@ -24,19 +25,29 @@ class Example(QWidget):
             else:
                 self.spn += 0.03
         elif str(event.key()) == '16777237':
-            self.spn -= 0.001
-            if self.spn < 0:
+            if self.spn <= 0:
                 self.spn = 0.002
             elif self.spn < 0.08 and self.spn > 0:
                 self.spn -= 0.002
             else:
                 self.spn -= 0.03
+        elif str(event.key()) == '16777220':
+            if self.counterform == 3:
+                self.counterform = 0
+            if self.counterform == 0:
+                self.form = 'map'
+            elif self.counterform == 1:
+                self.form = 'sat'
+            elif self.counterform == 2:
+                self.form = 'sat,skl'
+            self.counterform += 1
+
         self.image.clear()
         self.getImage()
 
 
     def getImage(self):
-        map_request = f"http://static-maps.yandex.ru/1.x/?ll=37.587945442466825,55.73402552478429&spn={self.spn},{self.spn}&l=map"
+        map_request = f"http://static-maps.yandex.ru/1.x/?ll=37.587945442466825,55.73402552478429&spn={self.spn},{self.spn}&l={self.form}"
         response = requests.get(map_request)
 
         if not response:
