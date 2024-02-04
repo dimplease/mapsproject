@@ -45,31 +45,29 @@ class Example(QWidget):
             elif self.counterform == 2:
                 self.form = 'sat,skl'
             self.counterform += 1
-        elif event.key() == 68:
+        elif event.key() == 1042:
             if self.ll1 < 180:
                 self.ll1 += 1
             if self.ll1 >= 180:
                 self.ll1 = 37.587945442466825
-        elif event.key() == 65:
+        elif event.key() == 1060:
             if self.ll1 > -180:
                 self.ll1 -= 1
             if self.ll1 <= -180:
                 self.ll1 = 37.587945442466825
-        elif event.key() == 87:
+        elif event.key() == 1062:
             if self.ll2 < 85:
-                self.ll2 += 10
+                self.ll2 += 1
             if self.ll2 >= 85:
                 self.ll2 = 55.73402552478429
-        elif event.key() == 83:
+        elif event.key() == 1067:
             if self.ll2 > -85:
-                self.ll2 -= 10
+                self.ll2 -= 1
             if self.ll2 <= -85:
                 self.ll2 = 55.73402552478429
 
         self.image.clear()
         self.getImage()
-        print(event.key())
-        print(self.ll2)
 
 
     def getImage(self):
