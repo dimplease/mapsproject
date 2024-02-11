@@ -17,18 +17,18 @@ class Example(QWidget):
         self.counterform = 0
         super().__init__()
         self.image = QLabel(self)
+        self.text = QLabel('Нажмите Enter для смены формата карты', self)
         self.getImage()
 
     def keyPressEvent(self, event):
-        if str(event.key()) == '16777235':
+        if str(event.key()) == '57':
             if self.spn < 0.008:
                 self.spn += 0.002
             elif self.spn >= 90:
                 self.spn = 0.002
             else:
-                self.spn += 0.003
-        elif str(event.key()) == '16777237':
-            self.spn -= 0.001
+                self.spn += 0.03
+        elif str(event.key()) == '51':
             if self.spn <= 0:
                 self.spn = 0.002
             elif self.spn < 0.08 and self.spn > 0:
@@ -87,13 +87,14 @@ class Example(QWidget):
         self.initUI()
 
     def initUI(self):
-        self.setGeometry(100, 100, *SCREEN_SIZE)
+        self.setGeometry(100, 100, 600, 500)
         self.setWindowTitle('Отображение карты')
         ## Изображение
         self.pixmap = QPixmap(self.map_file)
         self.image.move(0, 0)
         self.image.resize(600, 450)
         self.image.setPixmap(self.pixmap)
+        self.text.move(0, 470)
 
     def closeEvent(self, event):
         """При закрытии формы подчищаем за собой"""
