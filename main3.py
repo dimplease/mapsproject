@@ -24,7 +24,7 @@ class Example(QWidget):
             else:
                 self.spn += 0.03
         elif str(event.key()) == '16777237':
-            if self.spn < 0:
+            if self.spn <= 0:
                 self.spn = 0.002
             elif self.spn < 0.08 and self.spn > 0:
                 self.spn -= 0.002
