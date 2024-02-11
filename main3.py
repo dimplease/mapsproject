@@ -16,14 +16,14 @@ class Example(QWidget):
         self.getImage()
 
     def keyPressEvent(self, event):
-        if str(event.key()) == '16777235':
+        if str(event.key()) == '57':
             if self.spn < 0.008:
                 self.spn += 0.002
             elif self.spn >= 90:
                 self.spn = 0.002
             else:
                 self.spn += 0.03
-        elif str(event.key()) == '16777237':
+        elif str(event.key()) == '51':
             if self.spn <= 0:
                 self.spn = 0.002
             elif self.spn < 0.08 and self.spn > 0:
